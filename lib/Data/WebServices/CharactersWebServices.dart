@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_rickandmorty/Constants/Strings.dart';
 
@@ -17,13 +15,13 @@ class CharactersWebServices {
   }
 
   Future<List<dynamic>> getAllCharacters() async {
-      try {
-        var response = await dio.get('/character');
-        print(response.data);
-        return (response.data);
-      } catch (e) {
-        print(e.toString());
-        return [];
-      }
+    try {
+      var response = await dio.get('/character');
+      print(response.data);
+      return response.data['results'] as List<dynamic>; // Return the 'results' list
+    } catch (e) {
+      print(e.toString());
+      return [];
+    }
   }
 }

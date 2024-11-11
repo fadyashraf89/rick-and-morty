@@ -1,30 +1,37 @@
-class Characters{
+class MyCharacters {
    int? id;
-   String? name, status, species,gender,image, type, OriginName, LocationName;
-   Characters(
-      {this.id,
-      this.name,
-      this.status,
-      this.species,
-      this.gender,
-      this.image,
-      this.type,
-      this.OriginName,
-      this.LocationName});
+   String name;
+   String status;
+   String species;
+   String gender;
+   String image;
+   String type;
+   String originName;
+   String locationName;
 
-   factory Characters.fromJson(Map<String, dynamic> json){
-     return Characters(
-       id: json["results"]["id"],
-       name: json["results"]["name"],
-       status: json["results"]["status"],
-       species: json["results"]["species"],
-       type: json["results"]["type"],
-       gender: json["results"]["gender"],
-       image: json["results"]["image"],
-       OriginName: json["results"]["origin"]["name"],
-       LocationName: json["results"]["location"]["name"]
-     );
+   MyCharacters({
+      this.id,
+      required this.name,
+      required this.status,
+      required this.species,
+      required this.gender,
+      required this.image,
+      required this.type,
+      required this.originName,
+      required this.locationName,
+   });
+
+   factory MyCharacters.fromJson(Map<String, dynamic> json) {
+      return MyCharacters(
+         id: int.tryParse(json['id'].toString()), // Handle potential parsing errors
+         name: json['name'] ?? '', // Provide default value if null
+         status: json['status'] ?? '',
+         species: json['species'] ?? '',
+         gender: json['gender'] ?? '',
+         image: json['image'] ?? '',
+         type: json['type'] ?? '',
+         originName: json['origin']['name'] ?? '',
+         locationName: json['location']['name'] ?? '',
+      );
    }
-
-
 }
