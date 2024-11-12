@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rickandmorty/BusinessLogic/cubits/characters_cubit.dart';
 import 'package:flutter_rickandmorty/Constants/colors.dart';
 import 'package:flutter_rickandmorty/Presentation/widgets/CharacterItem.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 
 import '../../Data/models/Characters.dart'; // Alias
 
@@ -160,12 +161,45 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: MyColors.GreenColor,
-          title: isSearching ? buildSearchField() : BuildAppBarTitle(),
-          actions: buildAppBarActions(),
-          leading: isSearching ? const BackButton(color: Colors.white) : null),
-      body: buildBlocWidget(),
-    );
+        appBar: AppBar(
+            backgroundColor: MyColors.GreenColor,
+            title: isSearching ? buildSearchField() : BuildAppBarTitle(),
+            actions: buildAppBarActions(),
+            leading:
+                isSearching ? const BackButton(color: Colors.white) : null),
+        body: OfflineBuilder(
+          connectivityBuilder: (
+            BuildContext context,
+            List<ConnectivityResult> connectivity,
+            Widget child,
+          ) {
+            final bool connected =
+                !connectivity.contains(ConnectivityResult.none);
+            if (connected) {
+              print("El net sha8al");
+              return buildBlocWidget();
+            } else {
+              print("El net msh sha8al");
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/images/NoInternet.png"),
+                    SizedBox(height: 20,),
+                    Text(
+                      "You Are Offline",
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              );
+            }
+          },
+          child: const Center(
+            // Optional: Display a loading indicator while checking connectivity
+            child: CircularProgressIndicator(),
+          ),
+        ));
   }
 }
