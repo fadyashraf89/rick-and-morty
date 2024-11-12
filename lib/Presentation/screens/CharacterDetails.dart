@@ -42,7 +42,7 @@ class CharacterDetailsScreen extends StatelessWidget {
 
   Widget CharacterInfo(String title, String? value) {
     return RichText(
-      maxLines: 3,
+      maxLines: 1,
       text: TextSpan(
         children: [
           TextSpan(
