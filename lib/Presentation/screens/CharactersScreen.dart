@@ -64,7 +64,6 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
   Widget buildLoadedListWidgets() {
     return SingleChildScrollView(
       child: Container(
-        color: Colors.grey,
         child: Column(children: [
           buildCharactersList(),
         ]),
@@ -161,6 +160,7 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
         appBar: AppBar(
             backgroundColor: MyColors.GreenColor,
             title: isSearching ? buildSearchField() : BuildAppBarTitle(),

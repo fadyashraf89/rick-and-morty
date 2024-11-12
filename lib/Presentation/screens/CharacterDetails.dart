@@ -33,7 +33,7 @@ class CharacterDetailsScreen extends StatelessWidget {
                       BuildDivider(280),
                       CharacterInfo("Location: ", character.locationName),
                     ])),
-            const SizedBox(height: 500),
+            const SizedBox(height: 480),
           ]))
         ],
       ),
