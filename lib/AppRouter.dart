@@ -22,8 +22,7 @@ class AppRouter {
     switch (settings.name) {
       case kAllCharactersScreenRoute:
         return MaterialPageRoute(
-            builder: (builder) =>
-                BlocProvider(
+            builder: (builder) => BlocProvider(
                   create: (context) => charactersCubit,
                   child: const AllCharactersScreen(),
                 ));
@@ -31,8 +30,7 @@ class AppRouter {
         final character = settings.arguments as MyCharacters;
 
         return MaterialPageRoute(
-            builder: (builder) =>
-                BlocProvider(
+            builder: (builder) => BlocProvider(
                   create: (context) => CharactersCubit(charactersRepository),
                   child: CharacterDetailsScreen(character: character),
                 ));

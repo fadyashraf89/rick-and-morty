@@ -6,6 +6,7 @@ import '../../Constants/Strings.dart';
 
 class CharacterItem extends StatelessWidget {
   final MyCharacters character;
+
   const CharacterItem({super.key, required this.character});
 
   @override
@@ -17,7 +18,8 @@ class CharacterItem extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white70, borderRadius: BorderRadius.circular(8)),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, kCharacterDetailsScreenRoute, arguments: character),
+        onTap: () => Navigator.pushNamed(context, kCharacterDetailsScreenRoute,
+            arguments: character),
         child: Hero(
           tag: character.id!,
           child: GridTile(

@@ -18,7 +18,8 @@ class CharactersWebServices {
     try {
       var response = await dio.get('/character');
       print(response.data);
-      return response.data['results'] as List<dynamic>; // Return the 'results' list
+      return response.data['results']
+          as List<dynamic>; // Return the 'results' list
     } catch (e) {
       print(e.toString());
       return [];

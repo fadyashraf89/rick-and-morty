@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_rickandmorty/BusinessLogic/cubits/characters_cubit.dart';
 import 'package:flutter_rickandmorty/Constants/colors.dart';
-import 'package:flutter_rickandmorty/Presentation/widgets/CharacterItem.dart';
-import 'package:flutter_offline/flutter_offline.dart';
 
-import '../../Data/models/Characters.dart'; // Alias
+import '../../Data/models/Characters.dart';
+import '../widgets/BuildAppBarTitle.dart';
+import '../widgets/BuildLoadedListWidgets.dart'; // Alias
 
 class AllCharactersScreen extends StatefulWidget {
   const AllCharactersScreen({super.key});
@@ -50,7 +51,10 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
         builder: (context, state) {
       if (state is CharactersLoaded) {
         allCharacters = (state).characters;
-        return buildLoadedListWidgets();
+        return BuildLoadedListWidgets(
+            SearchTextController: SearchTextController,
+            allCharacters: allCharacters,
+            searchResultCharacters: searchResultCharacters);
       } else {
         return const Center(
           child: CircularProgressIndicator(
@@ -59,38 +63,6 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
         );
       }
     });
-  }
-
-  Widget buildLoadedListWidgets() {
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(children: [
-          buildCharactersList(),
-        ]),
-      ),
-    );
-  }
-
-  Widget buildCharactersList() {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 2 / 3,
-        crossAxisSpacing: 1,
-        mainAxisSpacing: 1,
-      ),
-      itemBuilder: (context, index) => CharacterItem(
-        character: SearchTextController.text.isEmpty
-            ? allCharacters![index]
-            : searchResultCharacters![index],
-      ),
-      itemCount: SearchTextController.text.isEmpty
-          ? allCharacters?.length
-          : searchResultCharacters?.length,
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      padding: EdgeInsets.zero,
-    );
   }
 
   void addSearchedForItemsToSearchedList(String searchedCharacter) {
@@ -149,18 +121,10 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
     }
   }
 
-  Widget BuildAppBarTitle() {
-    return const Text(
-      "All Characters",
-      style:
-          (TextStyle(color: MyColors.WhiteColor, fontWeight: FontWeight.bold)),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+        backgroundColor: Colors.grey,
         appBar: AppBar(
             backgroundColor: MyColors.GreenColor,
             title: isSearching ? buildSearchField() : BuildAppBarTitle(),
@@ -185,7 +149,9 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset("assets/images/NoInternet.png"),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Text(
                       "You Are Offline",
                       style:
@@ -198,7 +164,7 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
           },
           child: const Center(
             // Optional: Display a loading indicator while checking connectivity
-            child: CircularProgressIndicator() ,
+            child: CircularProgressIndicator(),
           ),
         ));
   }
