@@ -80,9 +80,13 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
         mainAxisSpacing: 1,
       ),
       itemBuilder: (context, index) => CharacterItem(
-        character: SearchTextController.text.isEmpty? allCharacters![index] : searchResultCharacters![index],
+        character: SearchTextController.text.isEmpty
+            ? allCharacters![index]
+            : searchResultCharacters![index],
       ),
-      itemCount: SearchTextController.text.isEmpty? allCharacters?.length : searchResultCharacters?.length,
+      itemCount: SearchTextController.text.isEmpty
+          ? allCharacters?.length
+          : searchResultCharacters?.length,
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       padding: EdgeInsets.zero,

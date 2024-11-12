@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_rickandmorty/BusinessLogic/cubits/characters_cubit.dart";
 import "package:flutter_rickandmorty/Data/WebServices/CharactersWebServices.dart";
+import "package:flutter_rickandmorty/Data/models/Characters.dart";
 import "package:flutter_rickandmorty/Data/repository/CharactersRepository.dart";
 
 import "Constants/Strings.dart";
@@ -21,13 +22,20 @@ class AppRouter {
     switch (settings.name) {
       case kAllCharactersScreenRoute:
         return MaterialPageRoute(
-            builder: (builder) => BlocProvider(
+            builder: (builder) =>
+                BlocProvider(
                   create: (context) => charactersCubit,
                   child: const AllCharactersScreen(),
                 ));
       case kCharacterDetailsScreenRoute:
+        final character = settings.arguments as MyCharacters;
+
         return MaterialPageRoute(
-            builder: (builder) => const CharacterDetailsScreen());
+            builder: (builder) =>
+                BlocProvider(
+                  create: (context) => CharactersCubit(charactersRepository),
+                  child: CharacterDetailsScreen(character: character),
+                ));
     }
     return null;
   }
