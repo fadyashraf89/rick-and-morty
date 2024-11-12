@@ -198,7 +198,7 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
           },
           child: const Center(
             // Optional: Display a loading indicator while checking connectivity
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator() ,
           ),
         ));
   }
