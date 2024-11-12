@@ -28,7 +28,7 @@ class _AllCharactersScreenState extends State<AllCharactersScreen> {
 
   Widget buildSearchField() {
     return TextField(
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       controller: SearchTextController,
       cursorColor: Colors.white,
       enableSuggestions: true,

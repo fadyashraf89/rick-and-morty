@@ -15,8 +15,8 @@ class CharacterDetailsScreen extends StatelessWidget {
           SliverList(
               delegate: SliverChildListDelegate([
             Container(
-                margin: EdgeInsets.fromLTRB(14, 14, 14, 14),
-                padding: EdgeInsets.all(8),
+                margin: const EdgeInsets.fromLTRB(14, 14, 14, 14),
+                padding: const EdgeInsets.all(8),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +33,7 @@ class CharacterDetailsScreen extends StatelessWidget {
                       BuildDivider(280),
                       CharacterInfo("Location: ", character.locationName),
                     ])),
-            SizedBox(height: 500),
+            const SizedBox(height: 500),
           ]))
         ],
       ),
@@ -47,7 +47,7 @@ class CharacterDetailsScreen extends StatelessWidget {
         children: [
           TextSpan(
             text: title,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
           ),
           TextSpan(
